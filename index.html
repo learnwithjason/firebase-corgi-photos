@@ -38,6 +38,16 @@
       <section class="photos"></section>
     </main>
 
+    <form>
+      <h2>Add a Photo!</h2>
+      <label for="url">
+        Image URL (right click, "copy image address")
+        <input type="text" name="url" id="url" />
+      </label>
+
+      <button type="submit">Save</button>
+    </form>
+
     <template id="photo-template">
       <div class="photo">
         <img src="" alt="" />
@@ -94,6 +104,18 @@
 
           photos.appendChild(element);
         });
+      });
+
+      $('form').addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const data = new FormData(event.target);
+        const url = data.get('url');
+        const user = auth.currentUser;
+
+        console.log(user);
+
+        corgisCol.add({ url, uid: user.uid });
       });
 
       const login = $('.login');
